@@ -49,26 +49,28 @@ dilation = cv2.dilate(thresh, rect_kernel, iterations = 1)
 
 
 contours,_ = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
+
 i = 0
 for cnt in contours:
     i = i+1
-    (x,y,w,h) = cv2.boundingRect(cnt)
-    cv2.rectangle(roi,(x,y),(x+w,y+h),(255,0,0),2)
+    if cv2.contourArea(cnt) >700:
+        (x,y,w,h) = cv2.boundingRect(cnt)
+        cv2.rectangle(roi,(x,y),(x+w,y+h),(255,0,0),2)
 
-    cropped = roi[y:y+h,x:x+w]
+        cropped = roi[y:y+h,x:x+w]
 
-    cv2.imshow(str(i),cropped)
-    cv2.waitKey(1)
+        cv2.imshow(str(i),cropped)
+        cv2.waitKey(1)
 
-    file = open("Text.txt","a")
+        file = open("Text.txt","a")
 
-    text = pytesseract.image_to_string(cropped)
+        text = pytesseract.image_to_string(cropped)
 
-    print('The answer is:'+text)
+        print('The answer is:'+text)
 
-    file.write(text)
-    file.write("\n")
-    file.close
+        file.write(text)
+        file.write("\n")
+file.close
 
 cv2.imshow('Result',roi)
 cv2.waitKey(0)
