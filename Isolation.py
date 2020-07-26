@@ -49,11 +49,16 @@ dilation = cv2.dilate(thresh, rect_kernel, iterations = 1)
 
 
 contours,_ = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
+i = 0
 for cnt in contours:
+    i = i+1
     (x,y,w,h) = cv2.boundingRect(cnt)
     cv2.rectangle(roi,(x,y),(x+w,y+h),(255,0,0),2)
 
     cropped = roi[y:y+h,x:x+w]
+
+    cv2.imshow(str(i),cropped)
+    cv2.waitKey(1)
 
     file = open("Text.txt","a")
 
