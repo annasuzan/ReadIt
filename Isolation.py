@@ -70,7 +70,7 @@ for cnt in contours:
 
         file.write(text)
         file.write("\n")
-file.close
+        file.close
 
 cv2.imshow('Result',roi)
 cv2.waitKey(0)
