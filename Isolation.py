@@ -5,7 +5,7 @@ import pytesseract
 def nothing(x):
     print(x)
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Joel\\Desktop\\School\\Joel\\CODING\\Note-Project\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Joel\\Desktop\\School\\Joel\\CODING\\Projects\\ReadIt\\Tesseract-OCR\\tesseract.exe'
 
 
 img = cv2.imread('attempt3.jpg',0)
