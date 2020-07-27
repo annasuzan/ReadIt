@@ -8,11 +8,12 @@ def nothing(x):
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Joel\\Desktop\\School\\Joel\\CODING\\Projects\\ReadIt\\Tesseract-OCR\\tesseract.exe'
 
 
-img = cv2.imread('attempt3.jpg',0)
+img = cv2.imread('Attempt4.jpg',0)
 
 
 
-col,row = img.shape
+
+row,col = img.shape
 cv2.imshow('Image',img)
 cv2.waitKey(0)
 print(str(row)+','+str(col))
@@ -53,13 +54,14 @@ contours,_ = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 i = 0
 for cnt in contours:
     i = i+1
-    if cv2.contourArea(cnt) >700:
+    if cv2.contourArea(cnt) >950:
         (x,y,w,h) = cv2.boundingRect(cnt)
         cv2.rectangle(roi,(x,y),(x+w,y+h),(255,0,0),2)
 
         cropped = roi[y:y+h,x:x+w]
 
-        cv2.imshow(str(i),cropped)
+        
+        cv2.imwrite(str(i)+'.jpg',cropped)
         cv2.waitKey(1)
 
         file = open("Text.txt","a")
