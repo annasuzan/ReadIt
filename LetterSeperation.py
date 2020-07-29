@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('7.jpg',0)
+img = cv2.imread('omega.jpg',0)
 
 cv2.imshow('Image',img)
 cv2.waitKey(0)
@@ -15,6 +15,7 @@ for cnt in contours:
         (x,y,w,h) = cv2.boundingRect(cnt)
         cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
         cropped = img[y:y+h,x:x+w]
+        cropped = cv2.resize(cropped,(28,28))
         cv2.imwrite(str(i)+'s.jpg',cropped)
         cv2.imshow('Image',img)
         cv2.waitKey(0)

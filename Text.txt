@@ -134,3 +134,7 @@ Omega,
 
 PLWL
 
+
+Omega,
+Npkcx
+and.
