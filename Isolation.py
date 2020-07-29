@@ -112,7 +112,7 @@ for cnt in contours:
         index.sort()
 
         for val in index:
-            word.append(predictions[str(val)])
+            word = word + predictions[str(val)]
 
         paragraph = paragraph + " " + word
 
