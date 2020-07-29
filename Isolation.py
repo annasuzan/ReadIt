@@ -76,8 +76,11 @@ paragraph = ""
 
 for cnt in contours:
 
+    predictions_words = {}
+    index_words = []
     if cv2.contourArea(cnt) >950:
-        (x,y,w,h) = cv2.boundingRect(cnt)               #function returns measurements for the bounding rectangle         
+        (x,y,w,h) = cv2.boundingRect(cnt)               #function returns measurements for the bounding rectangle  
+        index_words.append(x)       
         cv2.rectangle(roi,(x,y),(x+w,y+h),(255,0,0),2)  #generates the rectangle arounf the contour of a word
 
         cropped = roi[y:y+h,x:x+w]                      #cropping the roi to get a word
@@ -92,9 +95,9 @@ for cnt in contours:
 
         for cnt_w in contours_word:
             if cv2.contourArea(cnt_w) > 500:
-                (x,y,w,h) = cv2.boundingRect(cnt_w)
-                cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-                cropped_w = thresh_word[y:y+h,x:x+w]
+                (x_word,y,w,h) = cv2.boundingRect(cnt_w)
+                cv2.rectangle(img,(x_word,y),(x_word+w,y+h),(0,0,255),2)
+                cropped_w = thresh_word[y:y+h,x_word:x_word+w]
                 cropped_w = cv2.resize(cropped_w,(20,20))
                 cropped_w = cv2.copyMakeBorder(cropped_w,4,4,4,4,cv2.BORDER_CONSTANT,value = (0,0,0))
         
@@ -103,8 +106,8 @@ for cnt in contours:
                 cropped_w = cropped_w/255
                 pred = recognizer.predict_classes(cropped_w)
         
-                index.append(x)
-                predictions[str(x)] = convert_to_letter(pred[0])
+                index.append(x_word)
+                predictions[str(x_word)] = convert_to_letter(pred[0])
         
                 cv2.imshow('Image',cropped)
                 cv2.waitKey(0)
@@ -114,7 +117,12 @@ for cnt in contours:
         for val in index:
             word = word + predictions[str(val)]
 
-        paragraph = paragraph + " " + word
+        predictions_words[str(x)]= word
+
+    index_words.sort()
+
+    for val in index_words:
+        paragraph = paragraph + predictions_words[str(val)]
 
 
 file = open("Text.txt","a")
