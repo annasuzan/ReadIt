@@ -14,10 +14,11 @@ for cnt in contours:
     if cv2.contourArea(cnt) > 500:
         (x,y,w,h) = cv2.boundingRect(cnt)
         cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-        cropped = img[y:y+h,x:x+w]
-        cropped = cv2.resize(cropped,(28,28))
+        cropped = thresh[y:y+h,x:x+w]
+        cropped = cv2.resize(cropped,(20,20))
+        cropped = cv2.copyMakeBorder(cropped,4,4,4,4,cv2.BORDER_CONSTANT,value = (0,0,0))
         cv2.imwrite(str(i)+'s.jpg',cropped)
-        cv2.imshow('Image',img)
+        cv2.imshow('Image',thresh)
         cv2.waitKey(0)
 
 cv2.destroyAllWindows()
