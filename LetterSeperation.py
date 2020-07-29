@@ -3,6 +3,17 @@ import numpy as np
 import tensorflow as tf 
 import keras
 
+def convert_to_letter(num):
+    if num>=0 and num<=9 :
+        ref = 48
+        ascii_val = num + ref
+    elif num>=10 and num<=35 :
+        ref = 55
+        ascii_val = num + ref
+    elif num>=36 and num<=61 :
+        ref = 61
+        ascii_val = num + ref
+    return chr(ascii_val)
 
 
 img = cv2.imread('omega.jpg',0)
