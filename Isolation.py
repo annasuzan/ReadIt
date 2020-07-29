@@ -116,14 +116,16 @@ for cnt in contours:
 
         for val in index:
             word = word + predictions[str(val)]
-
+        
+        print(word)
         predictions_words[str(x)]= word
 
 index_words.sort()
 
 for val in index_words:
-    paragraph = paragraph + predictions_words[str(val)]
+    paragraph = paragraph + " " + predictions_words[str(val)]
 
+print(paragraph)
 
 file = open("Text.txt","a")
 file.write(paragraph)
