@@ -3,6 +3,8 @@ import numpy as np
 import tensorflow as tf 
 import keras
 
+
+
 img = cv2.imread('omega.jpg',0)
 
 cv2.imshow('Image',img)
@@ -13,7 +15,9 @@ contours,_ = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 i = 0
 recognizer = tf.keras.models.load_model('emnist_classifier_mark2.h5')
 
-
+predictions = {}
+index = []
+words = ""
 
 for cnt in contours:
     i = i+1
@@ -28,13 +32,17 @@ for cnt in contours:
         cropped = cropped.reshape(-1,28,28,1)
         cropped = cropped/255
         pred = recognizer.predict_classes(cropped)
-        print(pred)
-
-       
-
-
-        cv2.imwrite(str(i)+'s.jpg',cropped)
-        cv2.imshow('Image',thresh)
+        
+        index.append(x)
+        predictions[str(x)] = convert_to_letter(pred[0])
+        
+        cv2.imshow('Image',img)
         cv2.waitKey(0)
+
+index.sort()
+for val in index:
+    words.append(predictions[str(val)])
+
+print(words)   
 
 cv2.destroyAllWindows()
