@@ -52,7 +52,7 @@ for cnt in contours:
 
 index.sort()
 for val in index:
-    words = words + predictions[str(val)]
+    words.append(predictions[str(val)])
 
 print(words)   
 
