@@ -69,15 +69,15 @@ contours,_ = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 
 paragraph = ""
 
-
+predictions_words = {}
+index_words = []
 
 
 
 
 for cnt in contours:
 
-    predictions_words = {}
-    index_words = []
+    
     if cv2.contourArea(cnt) >950:
         (x,y,w,h) = cv2.boundingRect(cnt)               #function returns measurements for the bounding rectangle  
         index_words.append(x)       
@@ -119,10 +119,10 @@ for cnt in contours:
 
         predictions_words[str(x)]= word
 
-    index_words.sort()
+index_words.sort()
 
-    for val in index_words:
-        paragraph = paragraph + predictions_words[str(val)]
+for val in index_words:
+    paragraph = paragraph + predictions_words[str(val)]
 
 
 file = open("Text.txt","a")
